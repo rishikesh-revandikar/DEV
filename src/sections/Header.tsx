@@ -1,22 +1,40 @@
+"use client";
+
+import { Tabs } from "@/components/Tabs";
+import { usePathname } from "next/navigation";
+
+const currTab = `bg-white text-gray-900 hover:bg-white/70 hover:text-gray-900`;
+
+const navItems = [
+  {
+    title: "Home",
+    value: "#hero",
+  },
+  {
+    title: "Projects",
+    value: "#projects",
+  },
+  {
+    title: "About",
+    value: "#about",
+  },
+  {
+    title: "Contact",
+    value: "#contact",
+  },
+];
+
 export const Header = () => {
+  const pathname = usePathname();
   return (
-    <div className="flex justify-center items-center relative top-3">
+    <div className="flex justify-center items-center fixed z-10 top-3 w-full">
       <nav className="flex gap-1 p-0.5 border border-white/15 rounded-full bg-white/10 backdrop-blur">
-        <a href="#" className="nav-item">
-          Home
-        </a>
-        <a href="#" className="nav-item">
-          Projects
-        </a>
-        <a href="#" className="nav-item">
-          About
-        </a>
-        <a
-          href="#"
-          className="nav-item bg-white text-gray-900 hover:bg-white/70 hover:text-gray-900"
-        >
-          Contact
-        </a>
+        {/* {navItems.map((item, index) => (
+          <a key={index} href={item.href} className={`nav-item`}>
+            {item.title}
+          </a>
+        ))} */}
+        <Tabs tabs={navItems} />
       </nav>
     </div>
   );
