@@ -14,8 +14,9 @@ import mapImg from "@/assets/images/map.png";
 import smileMemoji from "@/assets/images/memoji-smile.png";
 import { CardHeader } from "@/components/CardHeader";
 import { ToolBoxItems } from "@/components/ToolBoxItems";
-import { motion } from "framer-motion";
-import { useRef } from "react";
+import { motion, useInView } from "framer-motion";
+import { useEffect, useRef } from "react";
+import { useLinkStore } from "@/store/useLinkStore";
 
 const toolBoxItems = [
   {
@@ -90,9 +91,17 @@ const hobbies = [
 ];
 
 export const AboutSection = () => {
-  const constrainRef = useRef(null);
+  const aboutRef = useRef<HTMLDivElement>(null);
+  const constrainRef = useRef<HTMLDivElement>(null);
+  const aboutInView = useInView(aboutRef);
+  const state = useLinkStore()
+  useEffect(() => {
+    if (aboutInView) {
+      state.setLink({ title: "About", value: "#about" });
+    }
+  }, [aboutInView]);
   return (
-    <section className="py-20 lg:py-28" id="about">
+    <section className="py-20 lg:py-28" id="about" ref={aboutRef}>
       <div className="container">
         <SectionHeader
           eyebrow="About Me"

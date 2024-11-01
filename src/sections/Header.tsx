@@ -8,7 +8,7 @@ const currTab = `bg-white text-gray-900 hover:bg-white/70 hover:text-gray-900`;
 const navItems = [
   {
     title: "Home",
-    value: "#hero",
+    value: "#home",
   },
   {
     title: "Projects",
@@ -29,11 +29,6 @@ export const Header = () => {
   return (
     <div className="flex justify-center items-center fixed z-10 top-3 w-full">
       <nav className="flex gap-1 p-0.5 border border-white/15 rounded-full bg-white/10 backdrop-blur">
-        {/* {navItems.map((item, index) => (
-          <a key={index} href={item.href} className={`nav-item`}>
-            {item.title}
-          </a>
-        ))} */}
         <Tabs tabs={navItems} />
       </nav>
     </div>

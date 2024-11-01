@@ -1,3 +1,5 @@
+"use client";
+
 import memojiAvatar1 from "@/assets/images/memoji-avatar-1.png";
 import memojiAvatar2 from "@/assets/images/memoji-avatar-2.png";
 import memojiAvatar3 from "@/assets/images/memoji-avatar-3.png";
@@ -7,7 +9,10 @@ import { SectionHeader } from "@/components/SectionHeader";
 import Image from "next/image";
 import grainImg from "@/assets/images/grain.jpg";
 import { Card } from "@/components/Card";
-import { Fragment } from "react";
+import { Fragment, useEffect, useRef } from "react";
+import { useInView } from "framer-motion";
+import { useLinkStore } from "@/store/useLinkStore";
+import { title } from "process";
 
 const testimonials = [
   {
@@ -43,6 +48,18 @@ const testimonials = [
 ];
 
 export const TestimonialsSection = () => {
+  const testRef = useRef<HTMLDivElement>(null);
+  const testInView = useInView(testRef);
+  const state = useLinkStore();
+
+  useEffect(() => {
+    if (testInView) {
+      state.setLink({
+        title: "Testimonials",
+        value: "#testimonials",
+      });
+    }
+  }, [testInView]);
   return (
     <div className="py-16 lg:py-24">
       <div className="container">

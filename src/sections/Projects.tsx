@@ -1,12 +1,18 @@
-import darkSaasLandingPage from "@/assets/images/dark-saas-landing-page.png";
-import lightSaasLandingPage from "@/assets/images/light-saas-landing-page.png";
-import aiStartupLandingPage from "@/assets/images/ai-startup-landing-page.png";
+"use client";
+
+import darkSaasLandingPage from "@/assets/images/campusnotes.png";
+import lightSaasLandingPage from "@/assets/images/billify.png";
+import aiStartupLandingPage from "@/assets/images/green.png";
 import Image from "next/image";
 import CheckCircleIcon from "@/assets/icons/check-circle.svg";
 import ArrowUpRightIcon from "@/assets/icons/arrow-up-right.svg";
 import grainImg from "@/assets/images/grain.jpg";
 import { SectionHeader } from "@/components/SectionHeader";
 import { Card } from "@/components/Card";
+import { Safari } from "@/components/SafariLayout";
+import { useEffect, useRef } from "react";
+import { useInView } from "framer-motion";
+import { useLinkStore } from "@/store/useLinkStore";
 
 const portfolioProjects = [
   {
@@ -48,8 +54,19 @@ const portfolioProjects = [
 ];
 
 export const ProjectsSection = () => {
+  const projectRef  = useRef<HTMLDivElement>(null);
+  const projectInVIew = useInView(projectRef);
+  const state = useLinkStore();
+  useEffect(() => {
+    if (projectInVIew) {
+      state.setLink({
+        title: "Projects",
+        value: "#projects",
+      });
+    }
+  }, [projectInVIew]);
   return (
-    <section className="pb-16 lg:py-24" id="projects">
+    <section ref={projectRef} className="pb-16 lg:py-24" id="projects">
       <div className="container">
         <SectionHeader
           eyebrow="Real-world Results"
@@ -63,10 +80,10 @@ export const ProjectsSection = () => {
               key={index}
               className=" px-8 pt-8 pb-0 md:pt-12 md:px-10 lg:pt-16 lg:px-20 sticky"
               style={{
-                top: `calc(64px + ${index * 40}px)`,
+                top: `calc(60px + ${index * 40}px)`,
               }}
             >
-              <div className="lg:grid lg:grid-cols-2 lg:gap-16">
+              <div className="lg:grid lg:grid-cols-2 lg:gap-11">
                 <div className="lg:pb-16">
                   <div className="bg-gradient-to-r from-emerald-300 to-sky-400 inline-flex gap-2 font-bold uppercase tracking-widest text-sm text-transparent bg-clip-text">
                     <span>{project.company}</span>
@@ -101,6 +118,11 @@ export const ProjectsSection = () => {
                     alt={project.title}
                     className="mt-8 -mb-4 md:-mb-0 lg:mt-0 lg:absolute lg:h-full lg:w-auto lg:max-w-none"
                   />
+                  {/* <Safari
+                    url="magicui.design"
+                    className="mt-8 -mb-4 md:-mb-0 lg:mt-0 lg:absolute lg:h-full lg:w-auto lg:max-w-none"
+                    src={project.image}
+                  /> */}
                 </div>
               </div>
             </Card>
